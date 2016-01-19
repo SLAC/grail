@@ -1,0 +1,67 @@
+---
+- hosts: workstation
+
+  tasks:
+    - name: print from playbook
+      debug: msg="in playbooks/playbook.yml as user {{ lookup('env','USER') }}"
+
+    - name: easy install pip
+      easy_install: name=pip
+      sudo: yes
+
+    - name: install apps from pip
+      pip: name={{item}} state=latest
+      sudo: yes
+      with_items:
+          - virtualenv
+          # - cliff
+          - pyyaml
+          # - awscli
+
+    #- name: install homebrew_taps
+    #  homebrew_tap: tap={{item}} state=present
+    #  with_items:
+    #      - gapple/services
+    #      - pivotal/tap
+    #      - caskroom/cask
+
+    - name: install apps from homebrew
+      sudo: false
+      homebrew: name={{item}} state=present update_homebrew=yes
+      with_items:
+          - coreutils
+          - git
+          - dos2unix
+          - wget
+          - ctags
+          - dnsmasq
+          - httpie
+          - mackup
+          - brew-cask
+          - php56
+          - php56-http
+          - php56-crypto
+          - php56-gmagick 
+          - php56-mcrypt
+          - php56-memcache 
+          - php56-mongo 
+          - php56-varnish 
+          - php56-xdebug 
+          - php56-xhgui
+
+
+
+    - name: Install z.sh
+      get_url: url=https://raw.githubusercontent.com/rupa/z/master/z.sh dest=/usr/local/share/zsh/ mode=0755
+
+    - name: Install z.sh
+      get_url: url=https://raw.githubusercontent.com/rupa/z/master/z.1 dest=/usr/local/share/man/man1/
+
+
+    - name: install gems
+      gem: name={{item}} state=latest
+      with_items:
+          - brewbygems
+          - bundler
+          - compass
+          - suzy
