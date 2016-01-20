@@ -1,3 +1,4 @@
+# These are packages that are particularly suited to Drupal Development
 ---
 - hosts: workstation
 
@@ -29,15 +30,7 @@
       sudo: false
       homebrew: name={{item}} state=present update_homebrew=yes
       with_items:
-          - coreutils
-          - git
-          - dos2unix
-          - wget
-          - ctags
-          - dnsmasq
-          - httpie
           - mackup
-          - brew-cask
           - php56
           - php56-http
           - php56-crypto
@@ -57,7 +50,7 @@
     - name: Install z.sh
       get_url: url=https://raw.githubusercontent.com/rupa/z/master/z.1 dest=/usr/local/share/man/man1/
 
-
+   # we use SASS/Compass with suzy.   
     - name: install gems
       gem: name={{item}} state=latest
       with_items:

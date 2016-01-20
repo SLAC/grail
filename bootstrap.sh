@@ -5,47 +5,51 @@
 #ready for Development tasks @SLAC on the DevOps team.
 ##
 # No point going any farther if we're not running correctly...
-if [ `whoami` != 'root' -a "$1" -a "$1" != "--list" ]; then
-  read -d '' prompt <<- EOT
-bootstrap.sh requires super-user privileges to work.
-Enter your password to continue...
-Password:
-EOT
-
-  sudo -E -p "$prompt" "$0" $* || exit 1
-  exit 0
-fi
-
-if [ "$SUDO_USER" = "root" -a "$1" -a "$1" != "--list" ]; then
-  /bin/echo "You must start this under your regular user account (not root) using sudo."
-  /bin/echo "Rerun using: sudo $0 $*"
-  exit 1
-fi
-
+#!/bin/bash
 BASEDIR=`dirname $0`
-VIRTUALENVDIR="${BASEDIR}/temp_virtual_env"
-
-mkdir ~/temp_virtual_env
-
-
+VIRTUALENVDIR="${BASEDIR}/ve"
+​
+if [ `id -u` != 0 ]; then
+    echo "This script must be run as root."
+    exit 1
+fi
+​
 # Ensure pip is installed
 if  [ ! -f /usr/local/bin/pip ]; then
-    echo "Installing pip..." 
-    sudo easy-install pip
+    echo "Installing pip..."
+    /usr/bin/easy_install pip
 fi
-
-
-# Install BattleSchool
-echo "Installing BattleSchool, the ansible wrapper... "
-sudo pip install BattleSchool
-mkdir ~/.battleschool/playbooks
+​
+# Install virtualenv if it's not installed already
+if  [ ! -f /usr/local/bin/virtualenv ]; then
+    echo "Installing virtualenv..."
+    /usr/local/bin pip install virtualenv
+fi
+​
+# Create a new virtualenv if one doesn't exist.
+if [ ! -d $VIRTUALENVDIR ]; then
+    echo "Creating Virtualenv..."
+    /usr/local/bin/virtualenv $VIRTUALENVDIR
+fi
+​
+# Install Battleschool
+echo "Installing dependencies... "
+$VIRTUALENVDIR/bin/pip install ansible==1.9.1
+$VIRTUALENVDIR/bin/pip install Battleschool
+​
+if [ ! -d ~/.battleschool/playbooks ]; then
+    mkdir -p ~/.battleschool/playbooks
+fi
+​
 #Get the required configs
-cd ~/.battleschool/playbooks/
-curl -O https://github.com/SLAC-Lab/mac-dev-deployment/archive/master.zip 
+curl -OL https://github.com/SLAC-Lab/mac-dev-deployment/archive/master.zip
 #expand archive
-#unzip ~/.battleschool/playbooks/master.zip -d ~/.battleschool/playbooks/
-
+unzip master.zip -d ~/.battleschool/playbooks/
+​
 echo "Running custom configuration for SLAC"
-battle --config-file ~/.battleschool/playbooks/mac-dev-deployment-master/config.yml
-
-echo "Finished, you may close this window"
+$VIRTUALENVDIR/bin/battle --config-file ~/.battleschool/playbooks/mac-dev-deployment-master/config.yml
+​
+​
+echo "Cleaning up..."
+rm -rf $VIRTUALENVDIR
+rm -f master.zip

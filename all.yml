@@ -17,14 +17,8 @@
           - virtualenv
           # - cliff
           - pyyaml
-          # - awscli
+          - awscli
 
-    #- name: install homebrew_taps
-    #  homebrew_tap: tap={{item}} state=present
-    #  with_items:
-    #      - gapple/services
-    #      - pivotal/tap
-    #      - caskroom/cask
 
     - name: install apps from homebrew
       sudo: false
