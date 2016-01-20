@@ -23,7 +23,7 @@ fi
 # Install virtualenv if it's not installed already
 if  [ ! -f /usr/local/bin/virtualenv ]; then
     echo "Installing virtualenv..."
-    /usr/local/bin pip install virtualenv
+    /usr/local/bin/pip install virtualenv
 fi
 ​
 # Create a new virtualenv if one doesn't exist.

@@ -6,18 +6,6 @@
     - name: print from playbook
       debug: msg="in playbooks/playbook.yml as user {{ lookup('env','USER') }}"
 
-    - name: easy install pip
-      easy_install: name=pip
-      sudo: yes
-
-    - name: install apps from pip
-      pip: name={{item}} state=latest
-      sudo: yes
-      with_items:
-          - virtualenv
-          # - cliff
-          - pyyaml
-          # - awscli
 
     #- name: install homebrew_taps
     #  homebrew_tap: tap={{item}} state=present
