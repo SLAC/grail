@@ -1,3 +1,4 @@
+#thes are foundation packages needed on every dev machine, regardless of platform developed for.
 ---
 - hosts: workstation
 
