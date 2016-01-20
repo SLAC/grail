@@ -43,7 +43,7 @@ fi
 # Create a new virtualenv if one doesn't exist.
 if [[ ! -d $VIRTUALENVDIR ]]; then
     echo "Creating Virtualenv..."
-    /usr/local/bin/virtualenv -H $VIRTUALENVDIR
+    /usr/local/bin/virtualenv $VIRTUALENVDIR
 fi
 ​
 # Install Battleschool
