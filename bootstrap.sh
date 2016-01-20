@@ -43,7 +43,9 @@ mkdir ~/.battleschool/playbooks
 cd ~/.battleschool/playbooks/
 curl -O https://github.com/SLAC-Lab/mac-dev-deployment/archive/master.zip 
 #expand archive
-unzip ~/.battleschool/playbooks/master.zip -d ~/.battleschool/playbooks/
+#unzip ~/.battleschool/playbooks/master.zip -d ~/.battleschool/playbooks/
 
 echo "Running custom configuration for SLAC"
 battle --config-file ~/.battleschool/playbooks/mac-dev-deployment-master/config.yml
+
+echo "Finished, you may close this window"
