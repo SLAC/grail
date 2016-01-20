@@ -7,31 +7,39 @@
 # No point going any farther if we're not running correctly...
 #!/bin/bash
 BASEDIR=`dirname $0`
-VIRTUALENVDIR="${BASEDIR}/ve"
-RESULT=${PWD#}    
+WORKINGDIR=~/.battleschool/playbooks
+VIRTUALENVDIR="${WORKINGDIR}/ve"
+   
 ​
-#install x-code, it is necessary for the rest of it.
-sh $RESULT/install-xcode.sh
 
-if [ `id -u` != 0 ]; then
+
+if [[ `id -u` != 0 ]]; then
     echo "This script must be run as root."
     exit 1
 fi
 ​
+#Get the required configs
+curl -OL https://github.com/SLAC-Lab/mac-dev-deployment/archive/master.zip
+#expand archive
+unzip master.zip -d $WORKINGDIR
+
+#install x-code, it is necessary for the rest of it.
+sh WORKINGDIR/install-xcode.sh
+
 # Ensure pip is installed
-if  [ ! -f /usr/local/bin/pip ]; then
+if  [[ ! -f /usr/local/bin/pip ]]; then
     echo "Installing pip..."
     /usr/bin/easy_install pip
 fi
 ​
 # Install virtualenv if it's not installed already
-if  [ ! -f /usr/local/bin/virtualenv ]; then
+if  [[ ! -f /usr/local/bin/virtualenv ]]; then
     echo "Installing virtualenv..."
     /usr/local/bin/pip install virtualenv
 fi
 ​
 # Create a new virtualenv if one doesn't exist.
-if [ ! -d $VIRTUALENVDIR ]; then
+if [[ ! -d $VIRTUALENVDIR ]]; then
     echo "Creating Virtualenv..."
     /usr/local/bin/virtualenv $VIRTUALENVDIR
 fi
@@ -41,17 +49,14 @@ echo "Installing dependencies... "
 $VIRTUALENVDIR/bin/pip install ansible==1.9.1
 $VIRTUALENVDIR/bin/pip install Battleschool
 ​
-if [ ! -d ~/.battleschool/playbooks ]; then
+if [[ ! -d $WORKINGDIR ]]; then
     mkdir -p ~/.battleschool/playbooks
 fi
 ​
-#Get the required configs
-curl -OL https://github.com/SLAC-Lab/mac-dev-deployment/archive/master.zip
-#expand archive
-unzip master.zip -d ~/.battleschool/playbooks/
+
 ​
 echo "Running custom configuration for SLAC"
-$VIRTUALENVDIR/bin/battle --config-file ~/.battleschool/playbooks/mac-dev-deployment-master/config.yml
+$VIRTUALENVDIR/bin/battle --config-file $WORKINGDIR/mac-dev-deployment-master/config.yml
 ​
 ​
 echo "Cleaning up..."
