@@ -8,7 +8,11 @@
 #!/bin/bash
 BASEDIR=`dirname $0`
 VIRTUALENVDIR="${BASEDIR}/ve"
+RESULT=${PWD#}    
 ​
+#install x-code, it is necessary for the rest of it.
+sh $RESULT/install-xcode.sh
+
 if [ `id -u` != 0 ]; then
     echo "This script must be run as root."
     exit 1
