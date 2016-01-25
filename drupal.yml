@@ -12,18 +12,18 @@
       sudo: false
       homebrew: name={{item}} state=present update_homebrew=yes
       with_items:
-          - mackup
-          - php56
-          - php56-http
-          - php56-crypto
-          - php56-gmagick 
-          - php56-mcrypt
-          - php56-memcache 
-          - php56-mongo 
-          - php56-varnish 
-          - php56-xdebug 
-          - php56-xhgui
-          - mysql56
+        - mackup
+        - php56
+        - php56-http
+        - php56-crypto
+        - php56-gmagick 
+        - php56-mcrypt
+        - php56-memcache 
+        - php56-mongo 
+        - php56-varnish 
+        - php56-xdebug 
+        - php56-xhgui
+        - mysql56
 
     #clone dotfiles that are useful
     - name: Clone dotfiles
@@ -52,10 +52,10 @@
     - name: install gems
       gem: name={{item}} state=latest
       with_items:
-          - brewbygems
-          - bundler
-          - compass
-          - suzy
+        - brewbygems
+        - bundler
+        - compass
+        - suzy
     - name: Start services at login
       file: src=/usr/local/opt/{{ item }}/homebrew.mxcl.{{ item }}.plist path=~/Library/LaunchAgents/homebrew.mxcl.{{ item }}.plist state=link force=yes
       with_items: 

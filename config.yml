@@ -10,14 +10,13 @@ sources:
       #  url: https://db.tt/VcyI9dvr
 
     git:
-      # - name: 'osx'
-      #   repo: 'https://github.com/slac-lab/ansible-osx'
-      #   playbooks:
-
-      #      - better-touch-tool.yml
-      #      - iterm2.yml
-      #      - sequel-pro.yml
-      #      - vagrant.yml
-      #      - virtualbox.yml
-      #      - sublime3.yml
-      #      - webstorm.ymls
+       - name: 'osx'
+         repo: 'https://github.com/slac-lab/ansible-osx'
+         playbooks:
+          - better-touch-tool.yml
+          - iterm2.yml
+          - sequel-pro.yml
+          - vagrant.yml
+          - virtualbox.yml
+          - sublime3.yml
+          - webstorm.yml
