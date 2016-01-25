@@ -26,7 +26,7 @@ curl -OL https://github.com/SLAC-Lab/mac-dev-deployment/archive/master.zip
 unzip master.zip -d $WORKINGDIR
 
 #install x-code, it is necessary for the rest of it.
-sh WORKINGDIR/mac-dev-deployment-master/install-xcode.sh
+sh $WORKINGDIR/mac-dev-deployment-master/install-xcode.sh
 
 # Ensure pip is installed
 if  [[ ! -f /usr/local/bin/pip ]]; then
@@ -35,21 +35,21 @@ if  [[ ! -f /usr/local/bin/pip ]]; then
 fi
 ​
 # Install virtualenv if it's not installed already
-if  [[ ! -f /usr/local/bin/virtualenv ]]; then
-    echo "Installing virtualenv..."
-    /usr/local/bin/pip install virtualenv
-fi
+#if  [[ ! -f /usr/local/bin/virtualenv ]]; then
+#    echo "Installing virtualenv..."
+#    /usr/local/bin/pip install virtualenv
+#fi
 ​
 # Create a new virtualenv if one doesn't exist.
-if [[ ! -d $VIRTUALENVDIR ]]; then
-    echo "Creating Virtualenv..."
-    /usr/local/bin/virtualenv $VIRTUALENVDIR
-fi
+#if [[ ! -d $VIRTUALENVDIR ]]; then
+#    echo "Creating Virtualenv..."
+#    /usr/local/bin/virtualenv $VIRTUALENVDIR
+#fi
 ​
 # Install Battleschool
 echo "Installing dependencies... "
-$VIRTUALENVDIR/bin/pip install ansible==1.9.1
-$VIRTUALENVDIR/bin/pip install Battleschool
+/usr/local/bin/pip install ansible==1.9.1
+/usr/local/bin/pip install Battleschool
 ​
 
 ​

@@ -1,22 +1,22 @@
 ---
 sources:
-  local:
-    - all.yml
-    - drupal.yml
+    local:
+      - all.yml
+      - drupal.yml
 
-  url:
-    #- name: playbook.yml
-    #  url: https://db.tt/VcyI9dvr
+    url:
+      #- name: playbook.yml
+      #  url: https://db.tt/VcyI9dvr
 
-  git:
-    - name: 'osx'
-      repo: 'https://github.com/slac-lab/ansible-osx'
-      playbooks:
+    git:
+      # - name: 'osx'
+      #   repo: 'https://github.com/slac-lab/ansible-osx'
+      #   playbooks:
 
-         - better-touch-tool.yml
-         - iterm2.yml
-         - sequel-pro.yml
-         - vagrant.yml
-         - virtualbox.yml
-         - sublime3.yml
-         - webstorm.yml
+      #      - better-touch-tool.yml
+      #      - iterm2.yml
+      #      - sequel-pro.yml
+      #      - vagrant.yml
+      #      - virtualbox.yml
+      #      - sublime3.yml
+      #      - webstorm.ymls
