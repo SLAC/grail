@@ -10,7 +10,6 @@ BASEDIR=`dirname $0`
 WORKINGDIR=~/.battleschool/playbooks
 VIRTUALENVDIR="${WORKINGDIR}/ve"
 
-
 if [[ `id -u` != 0 ]]; then
     echo "This script must be run as root."
     exit 1
@@ -33,31 +32,26 @@ if  [[ ! -f /usr/local/bin/pip ]]; then
     echo "Installing pip..."
     /usr/bin/easy_install pip
 fi
-​
+
 # Install virtualenv if it's not installed already
 #if  [[ ! -f /usr/local/bin/virtualenv ]]; then
 #    echo "Installing virtualenv..."
 #    /usr/local/bin/pip install virtualenv
 #fi
-​
+
 # Create a new virtualenv if one doesn't exist.
 #if [[ ! -d $VIRTUALENVDIR ]]; then
 #    echo "Creating Virtualenv..."
 #    /usr/local/bin/virtualenv $VIRTUALENVDIR
 #fi
-​
+
 # Install Battleschool
 echo "Installing dependencies... "
 /usr/local/bin/pip install ansible==1.9.1
 /usr/local/bin/pip install Battleschool
 ​
-
-​
-
-​
 echo "Running custom configuration for SLAC"
 $VIRTUALENVDIR/bin/battle --config-file $WORKINGDIR/mac-dev-deployment-master/config.yml
-​
 ​
 echo "Cleaning up..."
 rm -rf $VIRTUALENVDIR
