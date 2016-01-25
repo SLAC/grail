@@ -17,7 +17,7 @@
           - virtualenv
           # - cliff
           - pyyaml
-          - awscli
+          #- awscli
 
 
     - name: install apps from homebrew
@@ -51,12 +51,3 @@
 
     - name: Install z.sh
       get_url: url=https://raw.githubusercontent.com/rupa/z/master/z.1 dest=/usr/local/share/man/man1/
-
-
-    - name: install gems
-      gem: name={{item}} state=latest
-      with_items:
-          - brewbygems
-          - bundler
-          - compass
-          - susy

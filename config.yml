@@ -3,6 +3,7 @@ sources:
     local:
       - all.yml
       - drupal.yml
+      - dotfiles.yml
 
     url:
       #- name: playbook.yml

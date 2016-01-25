@@ -1,18 +1,12 @@
 # These are packages that are particularly suited to Drupal Development
 ---
 - hosts: workstation
-
+  vars:
+    home: /Users/{{local_username}}
+    src_home: /Users/{{local_username}}/src
   tasks:
     - name: print from playbook
       debug: msg="in playbooks/playbook.yml as user {{ lookup('env','USER') }}"
-
-
-    #- name: install homebrew_taps
-    #  homebrew_tap: tap={{item}} state=present
-    #  with_items:
-    #      - gapple/services
-    #      - pivotal/tap
-    #      - caskroom/cask
 
     - name: install apps from homebrew
       sudo: false
@@ -29,8 +23,24 @@
           - php56-varnish 
           - php56-xdebug 
           - php56-xhgui
+          - mysql56
 
+    #clone dotfiles that are useful
+    - name: Clone dotfiles
+      git: repo=git@github.com:SLAC-Lab/{{ item }}.git dest={{ home }}/.{{ item }} force=no update=no
+      with_items:
+        - Web-Team-Bash
 
+    - name: Symlink dotfiles
+      file: path={{ home }}/.{{ item }} src={{ home }}/.dotfiles/{{ item }} state=link
+      with_items:
+        - aliases
+        - bash_profile
+        - bash_prompt
+        - bashrc
+        - exports
+        - extra
+        - functions
 
     - name: Install z.sh
       get_url: url=https://raw.githubusercontent.com/rupa/z/master/z.sh dest=/usr/local/share/zsh/ mode=0755
@@ -46,3 +56,15 @@
           - bundler
           - compass
           - suzy
+    - name: Start services at login
+      file: src=/usr/local/opt/{{ item }}/homebrew.mxcl.{{ item }}.plist path=~/Library/LaunchAgents/homebrew.mxcl.{{ item }}.plist state=link force=yes
+      with_items: 
+        - mysql
+        
+    - name: Setup launch agents for services
+      command: launchctl load {{ home }}/Library/LaunchAgents/homebrew.mxcl.{{ item }}.plist
+        with_items:
+          - mysql
+
+    - name: Create src folder
+      file: path={{ src_home }} state=directory
