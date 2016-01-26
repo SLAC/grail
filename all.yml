@@ -4,17 +4,18 @@
 
   tasks:
   - name: get my username
-    command: whoami
+    command: logname
     register: local_username
     delegate_to: 127.0.0.1
 
-  - name: print from playbook
-    debug: msg="in playbooks/playbook.yml as user {{ lookup('env','USER') }}"
+  #- name: print from playbook
+  #  debug: msg="in playbooks/playbook.yml as user {{ lookup('env','USER') }}"
 
   - name: show user
-    debug: msg="{{local_username}}"
+    debug: msg="{{ local_username.stdout }}"
+
   - name: install apps from pip
-    pip: name={{item}} state=latest
+    pip: name="{{item}}" state=latest
     sudo: yes
     with_items:
       - virtualenv
@@ -24,10 +25,10 @@
 
 
   - name: install apps from homebrew
-    sudo: false
-    homebrew: name={{item}} state=present update_homebrew=yes
+    sudo: yes
+    sudo_user: "{{ local_username.stdout }}"
+    homebrew: name={{ item }} state=present update_homebrew=yes
     with_items:
-      - brew-cask
       - coreutils
       - git
       - dos2unix
@@ -36,18 +37,9 @@
       - dnsmasq
       - httpie
       - mackup
-      - node
       - rbenv
       - ruby
       - mongodb
-      
-
-
-  # requires node/npm from above
-  - name: install global apps from npm
-    npm: name={{item}} global=yes
-    with_items:
-      - grunt-cli
 
   - name: Install z.sh
     get_url: 

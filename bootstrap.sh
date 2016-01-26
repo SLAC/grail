@@ -4,33 +4,58 @@
 #This is a script to bootstrap the process of getting a new Mac 
 #ready for Development tasks @SLAC on the DevOps team.
 ##
-# No point going any farther if we're not running correctly...
-#!/bin/bash
+##
 BASEDIR=`dirname $0`
 WORKINGDIR=~/.battleschool/playbooks
+#myuser=$3  if we use casper
+sudo -v
 
-if [[ `id -u` != 0 ]]; then
-    echo "This script must be run as root."
-    exit 1
-fi
+# Keep-alive: update existing `sudo` time stamp until `osxprep.sh` has finished
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+# Step 1: Update the OS and Install Xcode Tools
+echo "------------------------------"
+echo "Updating OSX.  If this requires a restart, run the script again."
+# Install all available updates
+#sudo softwareupdate -iva
+# Install only recommended available updates
+#sudo softwareupdate -irv
+
+echo "------------------------------"
+echo "Installing Xcode Command Line Tools."
+# Install Xcode command line tools
+xcode-select --install
 
 # Download and install Homebrew
 echo "Installing Homebrew"
 if [[ ! -x /usr/local/bin/brew ]]; then
     echo "Info   | Install   | homebrew"
-    myuser=$3
-    su -u $myuser -c "ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)" "
-    EOF
+    echo "--As user-- $(logname)" 
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
 fi
+
+echo "------------------------------"
+echo "Installing expanded Homebrew repos."
+# Install Cask
+brew install caskroom/cask/brew-cask
+brew tap homebrew/dupes
+brew tap homebrew/versions
+brew tap homebrew/homebrew-php
+brew install git-extras
+
 
 # Modify the PATH
 export PATH=/usr/local/bin:$PATH
+
+#create the directory we want to work out of
+#TODO implment virtualenv
 
 if [[ ! -d $WORKINGDIR ]]; then
     mkdir -p ~/.battleschool/playbooks
 fi
 
-#Get the required configs
+Get the required configs
 if [[ ! -d $WORKINGDIR/mac-dev-deployment ]]; then
 	echo "Getting the correct configs/n"
 	curl -OL https://github.com/SLAC-Lab/mac-dev-deployment/archive/master.zip
@@ -42,23 +67,25 @@ fi
 
 cp -R $WORKINGDIR/mac-dev-deployment-master/ $WORKINGDIR/ 
 
-#install x-code, it is necessary for the rest of it.
-sh $WORKINGDIR/install-xcode.sh
-
 # Ensure pip is installed
 if  [[ ! -f /usr/local/bin/pip ]]; then
     echo "Installing pip..."
-    /usr/bin/easy_install pip
+  sudo /usr/bin/easy_install pip
 fi
+
+#update sudo's timestamp, as we want it after the long install above
+sudo -v
 
 # Install Battleschool
 echo "Installing dependencies... "
-/usr/local/bin/pip install ansible==1.9.1
-/usr/local/bin/pip install Battleschool
+sudo /usr/local/bin/pip install ansible==1.9.1
+sudo /usr/local/bin/pip install Battleschool
 
 echo "Running custom configuration for SLAC"
-battle --config-file $WORKINGDIR/config.yml --become-user="$MY_USER"
+sudo battle --config-file $WORKINGDIR/config.yml
 
+
+sudo -v #again with the keepalive
 echo "Cleaning up..."
 rm -f master.zip
 rm -Rf $WORKINGDIR/mac-dev-deployment

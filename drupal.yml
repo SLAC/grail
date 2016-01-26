@@ -1,25 +1,21 @@
 # These are packages that are particularly suited to Drupal Development
 ---
 - hosts: workstation
-  vars:
-    home: /Users/{{local_username}}
-    src_home: /Users/{{local_username}}/src
+
   tasks:
+    - name: get my username
+      command: logname
+      register: local_username
+      delegate_to: 127.0.0.1  
+
     - name: print from playbook
-      debug: msg="in playbooks/playbook.yml as user {{ lookup('env','USER') }}"
-
-    - name: install homebrew_taps
-      homebrew_tap: tap={{item}} state=present
-      with_items:
-        - gapple/services
-        - pivotal/tap
-        - caskroom/cask
-
+      debug: msg="in playbooks/playbook.yml as user {{ local_username.stdout }} and /Users/{{local_username.stdout}}"
+      
     - name: install apps from homebrew
-      sudo: false
+      sudo: true
+      sudo_user: "{{ local_username.stdout }}"
       homebrew: name={{item}} state=present update_homebrew=yes
       with_items:
-        - mackup
         - php56
         - php56-http
         - php56-crypto
@@ -30,30 +26,23 @@
         - php56-varnish 
         - php56-xdebug 
         - php56-xhgui
-        - mysql56
+        - mysql
 
     #clone dotfiles that are useful
     - name: Clone dotfiles
-      git: repo=git@github.com:SLAC-Lab/{{ item }}.git dest={{ home }}/.{{ item }} force=no update=no
+      git: repo="https://github.com/SLAC-Lab/{{item}}.git" dest="/Users/{{local_username.stdout}}/.dotfiles/.{{item}}" force=no update=no
       with_items:
         - Web-Team-Bash
 
+    - name: Delete dotfiles
+      file: path="/Users/{{local_username.stdout}}/.bash_profile" state=absent
+
     - name: Symlink dotfiles
-      file: path={{ home }}/.{{ item }} src={{ home }}/.dotfiles/{{ item }} state=link
+      file: path="/Users/{{local_username.stdout}}/.{{ item }}" src="/Users/{{local_username.stdout}}/.dotfiles/.Web-Team-Bash/.{{item}}" state=link
       with_items:
-        - aliases
         - bash_profile
         - bash_prompt
         - bashrc
-        - exports
-        - extra
-        - functions
-
-    - name: Install z.sh
-      get_url: url=https://raw.githubusercontent.com/rupa/z/master/z.sh dest=/usr/local/share/zsh/ mode=0755
-
-    - name: Install z.sh
-      get_url: url=https://raw.githubusercontent.com/rupa/z/master/z.1 dest=/usr/local/share/man/man1/
 
    # we use SASS/Compass with suzy.   
     - name: install gems
@@ -62,16 +51,18 @@
         - brewbygems
         - bundler
         - compass
-        - suzy
+        - compass-susy-plugin
+
     - name: Start services at login
-      file: src=/usr/local/opt/{{ item }}/homebrew.mxcl.{{ item }}.plist path=~/Library/LaunchAgents/homebrew.mxcl.{{ item }}.plist state=link force=yes
+      file: src=/usr/local/opt/{{ item }}/homebrew.mxcl.{{ item }}.plist path=/Library/LaunchAgents/homebrew.mxcl.{{ item }}.plist state=link force=yes
       with_items: 
         - mysql
         
+
     - name: Setup launch agents for services
-      command: launchctl load {{ home }}/Library/LaunchAgents/homebrew.mxcl.{{ item }}.plist
-        with_items:
-          - mysql
+      command: launchctl load "/Users/{{local_username.stdout}}"/Library/LaunchAgents/homebrew.mxcl.{{ item }}.plist
+      with_items:
+         - mysql
 
     - name: Create src folder
-      file: path={{ src_home }} state=directory
+      file: path="/Users/{{local_username.stdout}}"/src state=directory
