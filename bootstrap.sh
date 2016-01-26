@@ -20,7 +20,7 @@ if [[ ! -d $WORKINGDIR ]]; then
 fi
 
 #Get the required configs
-if [[! -d $WORKINGDIR/mac-dev-deployment ]]; then
+if [[ ! -d $WORKINGDIR/mac-dev-deployment ]]; then
 	echo "Getting the correct configs/n"
 	curl -OL https://github.com/SLAC-Lab/mac-dev-deployment/archive/master.zip
 
