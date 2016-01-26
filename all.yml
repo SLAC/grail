@@ -9,8 +9,13 @@
     delegate_to: 127.0.0.1
 
   - name: print from playbook
-    debug: msg="in playbooks/playbook.yml as user {{ lookup('env','USER') }}"
+    debug: msg="in playbooks/playbook.yml as user {{ lookup('env','USER') }} and user {{local_username}}"
 
+  - name: install homebrew
+    become: yes
+    become_user: {{local_username}}
+    with_items:
+      - homebrew
 
   - name: install apps from pip
     pip: name={{item}} state=latest

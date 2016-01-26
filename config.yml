@@ -13,7 +13,6 @@ sources:
        - name: 'osx'
          repo: 'https://github.com/slac-lab/ansible-osx'
          playbooks:
-          - homebrew
           - better-touch-tool.yml
           - iterm2.yml
           - sequel-pro.yml
