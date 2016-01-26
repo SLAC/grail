@@ -11,9 +11,6 @@
   - name: print from playbook
     debug: msg="in playbooks/playbook.yml as user {{ lookup('env','USER') }}"
 
-  - name: easy install pip
-      easy_install: name=pip
-      sudo: yes
 
   - name: install apps from pip
     pip: name={{item}} state=latest
@@ -29,6 +26,7 @@
     sudo: false
     homebrew: name={{item}} state=present update_homebrew=yes
     with_items:
+      - brew-cask
       - coreutils
       - git
       - dos2unix
@@ -41,7 +39,7 @@
       - rbenv
       - ruby
       - mongodb
-      - brew-cask
+      
 
 
   # requires node/npm from above
