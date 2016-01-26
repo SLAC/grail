@@ -3,7 +3,6 @@ sources:
     local:
       - all.yml
       - drupal.yml
-      - dotfiles.yml
 
     url:
       #- name: playbook.yml
@@ -12,6 +11,7 @@ sources:
     git:
        - name: 'osx'
          repo: 'https://github.com/slac-lab/ansible-osx'
+
          playbooks:
           - better-touch-tool.yml
           - iterm2.yml

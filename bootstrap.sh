@@ -15,6 +15,7 @@ if [[ `id -u` != 0 ]]; then
 fi
 
 # Download and install Homebrew
+echo "Installing Homebrew"
 if [[ ! -x /usr/local/bin/brew ]]; then
     echo "Info   | Install   | homebrew"
     ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
