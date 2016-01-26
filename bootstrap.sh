@@ -29,7 +29,7 @@ echo "Expanding..../n"
 unzip master.zip -d $WORKINGDIR
 fi
 
-cp $WORKINGDIR/mac-dev-deployment/* $WORKINGDIR/* 
+cp -R $WORKINGDIR/mac-dev-deployment/ $WORKINGDIR/ 
 
 #install x-code, it is necessary for the rest of it.
 sh $WORKINGDIR/install-xcode.sh
