@@ -18,7 +18,7 @@ fi
 echo "Installing Homebrew"
 if [[ ! -x /usr/local/bin/brew ]]; then
     echo "Info   | Install   | homebrew"
-    MY_USER = $(whoami)
+    myuser=$(whoami)
     su $(whoami)
     ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
 fi
