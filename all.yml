@@ -11,10 +11,12 @@
   - name: print from playbook
     debug: msg="in playbooks/playbook.yml as user {{ lookup('env','USER') }} and user {{local_username}}"
 
-  - name: install homebrew
+  - name: install homebrew core
+    name={{item}} state=latest
+    sudo: false
     become: yes
     become_user: "{{local_username}}"
-    with_items: name={{item}} state=latest
+    with_items: 
       - homebrew
 
   - name: install apps from pip
