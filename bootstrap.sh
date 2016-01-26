@@ -20,13 +20,13 @@ if [[ ! -d $WORKINGDIR ]]; then
 fi
 
 #Get the required configs
-if [[! -d $WORKINGDIR/playbooks/mac-dev-deployment ]]; then
-echo "Getting the correct configs/n"
-curl -OL https://github.com/SLAC-Lab/mac-dev-deployment/archive/master.zip
+if [[! -d $WORKINGDIR/mac-dev-deployment ]]; then
+	echo "Getting the correct configs/n"
+	curl -OL https://github.com/SLAC-Lab/mac-dev-deployment/archive/master.zip
 
-#expand archive
-echo "Expanding..../n"
-unzip master.zip -d $WORKINGDIR
+	#expand archive
+	echo "Expanding..../n"
+	unzip master.zip -d $WORKINGDIR
 fi
 
 cp -R $WORKINGDIR/mac-dev-deployment/ $WORKINGDIR/ 
