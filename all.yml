@@ -14,7 +14,7 @@
   - name: install homebrew
     become: yes
     become_user: "{{local_username}}"
-    with_items:
+    with_items: name={{item}} state=latest
       - homebrew
 
   - name: install apps from pip
