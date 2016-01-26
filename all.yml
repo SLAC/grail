@@ -9,8 +9,10 @@
     delegate_to: 127.0.0.1
 
   - name: print from playbook
-    debug: msg="in playbooks/playbook.yml as user {{ lookup('env','USER') }} {{local_username}}"
+    debug: msg="in playbooks/playbook.yml as user {{ lookup('env','USER') }}"
 
+  - name: show user
+    debug: msg="{{local_username}}"
   - name: install apps from pip
     pip: name={{item}} state=latest
     sudo: yes
