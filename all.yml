@@ -49,7 +49,7 @@
       - grunt-cli
 
   - name: Install z.sh
-      get_url: url=https://raw.githubusercontent.com/rupa/z/master/z.sh dest=/usr/local/share/zsh/ mode=0755
+      get_url: url='https://raw.githubusercontent.com/rupa/z/master/z.sh dest=/usr/local/share/zsh/'' mode=0755
 
   - name: Install z.sh
-      get_url: url=https://raw.githubusercontent.com/rupa/z/master/z.1 dest=/usr/local/share/man/man1/
+      get_url: url='https://raw.githubusercontent.com/rupa/z/master/z.1' dest=/usr/local/share/man/man1/
