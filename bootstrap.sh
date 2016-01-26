@@ -19,8 +19,8 @@ echo "Installing Homebrew"
 if [[ ! -x /usr/local/bin/brew ]]; then
     echo "Info   | Install   | homebrew"
     myuser=$(whoami)
-    su $(whoami)
-    ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)"
+    sudo -u $myuser bash << EOF
+    ruby -e "$(curl -fsSL https://raw.github.com/Homebrew/homebrew/go/install)" EOF
 fi
 
 # Modify the PATH
