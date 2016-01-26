@@ -3,55 +3,55 @@
 - hosts: workstation
 
   tasks:
-    - name: get my username
-      command: whoami
-      register: local_username
-      delegate_to: 127.0.0.1
+  - name: get my username
+    command: whoami
+    register: local_username
+    delegate_to: 127.0.0.1
 
-    - name: print from playbook
-      debug: msg="in playbooks/playbook.yml as user {{ lookup('env','USER') }}"
+  - name: print from playbook
+    debug: msg="in playbooks/playbook.yml as user {{ lookup('env','USER') }}"
 
-    - name: easy install pip
+  - name: easy install pip
       easy_install: name=pip
       sudo: yes
 
-    - name: install apps from pip
-      pip: name={{item}} state=latest
-      sudo: yes
-        with_items:
-          - virtualenv
-          # - cliff
-          - pyyaml
-          #- awscli
+  - name: install apps from pip
+    pip: name={{item}} state=latest
+    sudo: yes
+    with_items:
+      - virtualenv
+      - pyyaml
+      # - awscli
+      # - cliff
 
 
-    - name: install apps from homebrew
-      sudo: false
-      homebrew: name={{item}} state=present update_homebrew=yes
-        with_items:
-          - coreutils
-          - git
-          - dos2unix
-          - wget
-          - ctags
-          - dnsmasq
-          - httpie
-          - mackup
-          - node
-          - rbenv
-          - ruby
-          - mongodb
-          - brew-cask
+  - name: install apps from homebrew
+    sudo: false
+    homebrew: name={{item}} state=present update_homebrew=yes
+    with_items:
+      - coreutils
+      - git
+      - dos2unix
+      - wget
+      - ctags
+      - dnsmasq
+      - httpie
+      - mackup
+      - node
+      - rbenv
+      - ruby
+      - mongodb
+      - brew-cask
 
 
-    # requires node/npm from above
-    - name: install global apps from npm
-        npm: name={{item}} global=yes
-        with_items:
-          - grunt-cli
+  # requires node/npm from above
+  - name: install global apps from npm
+      npm: name={{item}} global=yes
+      with_items:
+        - grunt-cli
 
-    - name: Install z.sh
-        get_url: url=https://raw.githubusercontent.com/rupa/z/master/z.sh dest=/usr/local/share/zsh/ mode=0755
+  - name: Install z.sh
+      get_url: url=https://raw.githubusercontent.com/rupa/z/master/z.sh dest=/usr/local/share/zsh/ mode=0755
 
-    - name: Install z.sh
-        get_url: url=https://raw.githubusercontent.com/rupa/z/master/z.1 dest=/usr/local/share/man/man1/
+  - name: Install z.sh
+      get_url: url=https://raw.githubusercontent.com/rupa/z/master/z.1 dest=/usr/local/share/man/man1/
