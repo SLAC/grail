@@ -14,11 +14,13 @@ You can also use Command+space -> type terminal -> type Enter
 
 Copy the line below (command+c) and paste it (command+v) into the terminal window and type enter
 
-```curl https:https://raw.githubusercontent.com/SLAC-Lab/mac-dev-deployment/master/bootstrap.sh | bash```
+```curl https://raw.githubusercontent.com/SLAC-Lab/mac-dev-deployment/master/bootstrap.sh | bash```
 
 Caveats;  There seems to be some timeouts with Homebrew and random packages.  I can't really control those.
-Should you expereince timeouts, please re-run the above command.
+Should you experience  timeouts, or failures due to timeouts please re-run the above command.
+
 You will know you are finished with you see the words:
+
 ``` All Done! Happy Coding! ```
 
 You may see warnings and errors, they are generally safe to ignore.
