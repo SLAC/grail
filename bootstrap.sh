@@ -16,16 +16,21 @@ if [[ `id -u` != 0 ]]; then
     exit 1
 fi
 
+
 if [[ ! -d $WORKINGDIR ]]; then
     mkdir -p ~/.battleschool/playbooks
 fi
 
 #Get the required configs
+if [[! -d $WORKINGDIR/playbooks/mac-dev-deployment ]]; then
 echo "Getting the correct configs/n"
 curl -OL https://github.com/SLAC-Lab/mac-dev-deployment/archive/master.zip
+
 #expand archive
 echo "Expanding..../n"
 unzip master.zip -d $WORKINGDIR
+fi
+
 mv $WORKINGDIR/playbooks/mac-dev-deployment/* $WORKINGDIR/playbooks/ 
 
 #install x-code, it is necessary for the rest of it.
@@ -43,7 +48,7 @@ echo "Installing dependencies... "
 /usr/local/bin/pip install Battleschool
 
 echo "Running custom configuration for SLAC"
-battle --config-file $WORKINGDIR/config.yml
+battle --config-file $WORKINGDIR/config.yml --become-user="$MY_USER"
 
 echo "Cleaning up..."
 rm -f master.zip

@@ -46,8 +46,8 @@
 
     # requires node/npm from above
     - name: install global apps from npm
-      npm: name={{item}} global=yes
-      with_items:
+        npm: name={{item}} global=yes
+        with_items:
           - grunt-cli
 
     - name: Install z.sh
