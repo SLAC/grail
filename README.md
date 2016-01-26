@@ -1,4 +1,4 @@
-# Mac Developr Machine Provisioning and Deployment
+# Mac Developer Machine Provisioning and Deployment
 
 This set of scripts utilizes BASH, Ansible and Homebrew to provide a standardized environment for Python, PHP, Ruby and Javascript.
 
@@ -12,7 +12,8 @@ Click Finder -> in the Location bar at the top of your screen, click go -> click
 
 You can also use Command+space -> type terminal -> type Enter
 
-Copy the line below and past it (command+v) into the terminal window and type enter
+Copy the line below (command+c) and paste it (command+v) into the terminal window and type enter
+
 ```curl https:https://raw.githubusercontent.com/SLAC-Lab/mac-dev-deployment/master/bootstrap.sh | bash```
 
 Caveats;  There seems to be some timeouts with Homebrew and random packages.  I can't really control those.
