@@ -11,8 +11,8 @@
   - name: print from playbook
     debug: msg="in playbooks/playbook.yml as user {{ lookup('env','USER') }} and user {{local_username}}"
 
-  - name: install homebrew core
-    name={{item}} state=latest
+  - name: install homebrew 
+    core name={{item}} state=latest
     sudo: false
     become: yes
     become_user: "{{local_username}}"
