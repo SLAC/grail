@@ -8,9 +8,7 @@
 #!/bin/bash
 BASEDIR=`dirname $0`
 WORKINGDIR=~/.battleschool/playbooks
-VIRTUALENVDIR="${WORKINGDIR}/ve"
-MYUSER = stat -f '%u %Su' /dev/console | /usr/bin/awk '{print $2}'
-print MYUSER
+
 if [[ `id -u` != 0 ]]; then
     echo "This script must be run as root."
     exit 1
@@ -52,5 +50,5 @@ battle --config-file $WORKINGDIR/config.yml --become-user="$MY_USER"
 
 echo "Cleaning up..."
 rm -f master.zip
-
+rm -Rf $WORKINGDIR/mac-dev-deployment
 
