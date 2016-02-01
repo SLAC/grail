@@ -19,13 +19,14 @@ echo "Updating OSX.  If this requires a restart, run the script again."
 # Install all available updates
 #sudo softwareupdate -iva
 # Install only recommended available updates
-#sudo softwareupdate -irv
+sudo softwareupdate -irv
 
 echo "------------------------------"
 echo "Installing Xcode Command Line Tools."
 # Install Xcode command line tools
 xcode-select --install
-
+#sleep for three minutes 
+sleep 3m
 # Download and install Homebrew
 echo "Installing Homebrew"
 if [[ ! -x /usr/local/bin/brew ]]; then

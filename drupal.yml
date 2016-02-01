@@ -66,3 +66,9 @@
 
     - name: Create src folder
       file: path="/Users/{{local_username.stdout}}"/src state=directory
+
+    #TODO Add downloading of our Drupl Repos.  Need key management.  Can't stick keys in github
+    #Should add the virtualhost script - but users can just go get acquia desktop :-/
+    #need tighter management of the httpd/php processes.
+    #maybe later in the year.
+    #there are a ton of good hacks on github for OS-X improvement.  Integrate some of those?
