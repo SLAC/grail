@@ -25,6 +25,18 @@ You will know you are finished with you see the words:
 
 You may see warnings and errors, they are generally safe to ignore.
 As with all software, please examine the source before running a command a guy in a lab tells you to.
+### about
+This is a package developed to assist Developers that are new to Drupal, get the toolchain in place to develop locally using a Macintosh Computer running OS-X 10.10 or higher.
+
+Largely, it was designed to be self-contained, pulling from other projects only when necessary. However, SLAC Drupal Developers will need credentials in place (ssh keys) to utilize the scripts that download the private Drupal repositories.
+
+If you're not a SLAC Drupal developer, the extra scripts that are not ran by bootstrap.sh, won't interest you - other than academically to see how I accomplished it.
+
+The documentation in the PDF was pulled from Github and Drupal's support sections.  I take no credit for it's writing, but merely arranging it in a downloadable document.
+
+We acknowledge that there are enterprise alternatives - however, a lack of resources dictates that we get this working, so others can begin developing. 
+
+
 
 -V
 
