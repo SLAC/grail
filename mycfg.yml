@@ -1,0 +1,16 @@
+user:
+  TOKEN: ""
+  ORG: "SLAC-Lab"
+  NAME: "xalgorithm"
+paths:
+  BASE_URL: "https://github.com/SLAC-Lab/"
+  HOST: "github.com/SLAC-Lab"
+misc:
+  DESC: " SLAC National Accelerator "
+  TEAM: "Enterprise Apps Custom Team"
+  COM:  " a custom enterprise application developed by "
+  LOCAL_PATH: "~/Desktop/muhtest/"
+repos:
+  - 'slac-www'
+  - 'slac-gtw'
+  - 'slac-features'

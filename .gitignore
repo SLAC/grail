@@ -38,3 +38,5 @@ con\r
 .mr.developer.cfg
 .project
 .pydevproject
+
+*.app

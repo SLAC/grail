@@ -67,6 +67,26 @@
     - name: Create src folder
       file: path="/Users/{{local_username.stdout}}"/src state=directory
 
+    - name: download drush
+      get_url: url="http://files.drush.org/drush.phar" dest="/usr/local/bin"
+
+    - name: set php.ini error_reporting setting
+      sudo: yes
+      ini_file: dest=/etc/php.ini section=PHP option=error_reporting value=E_ALL
+
+    - name: set php.ini display_errors setting
+      sudo: yes
+      ini_file: dest=/etc/php.ini section=PHP option=display_errors value=On
+
+    - name: set php.ini display_startup_errors setting
+      sudo: yes
+      ini_file: dest=/etc/php.ini section=PHP option=display_startup_errors value=On
+
+    - name: set php.ini date.timezone setting
+      sudo: yes
+      ini_file: dest=/etc/php.ini section=Date option=date.timezone value=Pacific/Auckland
+
+
     #TODO Add downloading of our Drupl Repos.  Need key management.  Can't stick keys in github
     #Should add the virtualhost script - but users can just go get acquia desktop :-/
     #need tighter management of the httpd/php processes.
