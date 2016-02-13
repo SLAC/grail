@@ -31,7 +31,7 @@ if [ ! -z "$2" ]; then
 fi
 
 if [[ ! -d $WORKINGDIR ]]; then
-    mkdir -p ~/.battleschool/playbooks
+    mkdir -p ~/.slac-mac/playbooks
 fi
 
 function triggerError {
@@ -107,15 +107,14 @@ if ! exists ansible; then
 fi
 setStatusMessage "Get SLAC configs"
 #Get the required configs
-
-if [[ ! -d $WORKINGDIR/mac-dev-deployment ]]; then
 	echo "Getting the correct configs/n"
-	curl -OL https://github.com/SLAC-Lab/mac-dev-deployment/archive/master.zip
+	mkdir -p ~/.slac-mac/playbooks
+	git clone -q https://github.com/SLAC-Lab/mac-dev-deployment ~/.slac-mac/playbooks
 
 	#expand archive
 	echo "Expanding..../n"
 	unzip master.zip -d $WORKINGDIR
-fi
+
 setStatusMessage "Create necessary folders"
 
 sudo mkdir -p /usr/local/superlumic
