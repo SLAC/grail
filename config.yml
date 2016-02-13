@@ -1,8 +1,10 @@
 ---
 sources:
     local:
-      - all.yml #this is valid for all web developers.  These are common unix tools 
+      - all.yml #this is valid for all web developers.  These are common unix tools
       - drupal.yml #this is specifically for Drupal.  This is an enhanced toolchain
+
+
 
     url:
       #- name: playbook.yml 
@@ -13,7 +15,7 @@ sources:
          repo: 'https://github.com/slac-lab/ansible-osx'
 
          playbooks: #note the conspicuous absence of homebrew - it would be ideal to install it here
-          - better-touch-tool.yml     #but I was unable to get that to work reliably.
+          - better-touch-tool.yml                      #but I was unable to get that to work reliably.
           - iterm2.yml  #improved terminal fit for daily command line use
           - sequel-pro.yml #very useful for manip sql db's
           - vagrant.yml #auto provisioning for the masses of Dev environments
@@ -21,4 +23,9 @@ sources:
           - sublime3.yml #best code editor there is!
           - webstorm.yml #IDE for WebDev, excellent for Javascript apps
           - phpstorm.yml #integrated support for Drupal
-          - firefox.yml #
+          - firefox.yml #Good browser for development
+vars:
+    - computername:
+    - git_user_name:
+    - git_user_email:
+    - php_version:

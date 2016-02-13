@@ -10,23 +10,7 @@
 
     - name: print from playbook
       debug: msg="in playbooks/playbook.yml as user {{ local_username.stdout }} and /Users/{{local_username.stdout}}"
-      
-    - name: install apps from homebrew
-      sudo: true
-      sudo_user: "{{ local_username.stdout }}"
-      homebrew: name={{item}} state=present update_homebrew=yes
-      with_items:
-        - php56
-        - php56-http
-        - php56-crypto
-        - php56-gmagick 
-        - php56-mcrypt
-        - php56-memcache 
-        - php56-mongo 
-        - php56-varnish 
-        - php56-xdebug 
-        - php56-xhgui
-        - mysql
+
 
     #clone dotfiles that are useful
     - name: Clone dotfiles
@@ -69,6 +53,7 @@
 
     - name: download drush
       get_url: url="http://files.drush.org/drush.phar" dest="/usr/local/bin"
+
 
     - name: set php.ini error_reporting setting
       sudo: yes

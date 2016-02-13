@@ -1,62 +1,113 @@
+#!/usr/bin/env bash
 #!/bin/bash
-##Written by: Adam Duston and Vincent Flesouras
-#January 2016
-#This is a script to bootstrap the process of getting a new Mac 
-#ready for Development tasks @SLAC on the DevOps team.
-##
-##
+
+BGreen='\e[1;32m'       # Green
+BRed='\e[1;31m'         # Red
+Color_Off='\e[0m'       # Text Reset
 BASEDIR=`dirname $0`
-WORKINGDIR=~/.battleschool/playbooks
-#myuser=$3  if we use casper
+WORKINGDIR=~/.slac-mac/playbooks
+ROLESDIR=~/roles
+
+function setStatusMessage {
+    printf "${IRed} --> ${BGreen}$1${Color_Off}\n" 1>&2
+}
+
+printf "${BRed}    _____ _               _____      ____   _____ _____ ____  ${Color_Off}\n"
+printf "${BRed}   / ____| |        /\   / ____|    / __ \ / ____|_   _/ __ \ ${Color_Off}\n"
+printf "${BRed}  | (___ | |       /  \ | |        | |  | | |      | || |  | |${Color_Off}\n"
+printf "${BRed}   \___ \| |      / /\ \| |        | |  | | |      | || |  | |${Color_Off}\n"
+printf "${BRed}   ____) | |____ / ____ \ |____    | |__| | |____ _| || |__| |${Color_Off}\n"
+printf "${BRed}  |_____/|______/_/    \_\_____|    \____/ \_____|_____\____/ ${Color_Off}\n\n"
+
+setStatusMessage "Checking if we need to ask for a sudo password"
+
 sudo -v
+export ANSIBLE_ASK_SUDO_PASS=True
 
-# Keep-alive: update existing `sudo` time stamp until `osxprep.sh` has finished
-while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-
-# Step 1: Update the OS and Install Xcode Tools
-echo "------------------------------"
-echo "Updating OSX.  If this requires a restart, run the script again."
-# Install all available updates
-#sudo softwareupdate -iva
-# Install only recommended available updates
-sudo softwareupdate -irv
-
-echo "------------------------------"
-echo "Installing Xcode Command Line Tools."
-# Install Xcode command line tools
-xcode-select --install
-#sleep for three minutes 
-sleep 3m
-# Download and install Homebrew
-echo "Installing Homebrew"
-if [[ ! -x /usr/local/bin/brew ]]; then
-    echo "Info   | Install   | homebrew"
-    echo "--As user-- $(logname)" 
-    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-
+repo=$1
+username=$USER
+if [ ! -z "$2" ]; then
+    username=$2
 fi
-
-echo "------------------------------"
-echo "Installing expanded Homebrew repos."
-# Install Cask
-brew install caskroom/cask/brew-cask
-brew tap homebrew/dupes
-brew tap homebrew/versions
-brew tap homebrew/homebrew-php
-brew install git-extras
-
-
-# Modify the PATH
-export PATH=/usr/local/bin:$PATH
-
-#create the directory we want to work out of
-#TODO implment virtualenv
 
 if [[ ! -d $WORKINGDIR ]]; then
     mkdir -p ~/.battleschool/playbooks
 fi
 
-Get the required configs
+function triggerError {
+    printf "${BRed} --> $1 ${Color_Off}\n" 1>&2
+    exit 1
+}
+
+# Check whether a command exists - returns 0 if it does, 1 if it does not
+function exists {
+  if command -v $1 >/dev/null 2>&1
+  then
+    return 0
+  else
+    return 1
+  fi
+}
+
+# credits https://github.com/boxcutter/osx/blob/master/script/xcode-cli-tools.sh
+function install_clt {
+    # Get and install Xcode CLI tools
+    OSX_VERS=$(sw_vers -productVersion | awk -F "." '{print $2}')
+
+    # on 10.9+, we can leverage SUS to get the latest CLI tools
+    if [ "$OSX_VERS" -ge 9 ]; then
+        # create the placeholder file that's checked by CLI updates' .dist code
+        # in Apple's SUS catalog
+        touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
+        # find the CLI Tools update
+        PROD=$(softwareupdate -l | grep "\*.*Command Line" | head -n 1 | awk -F"*" '{print $2}' | sed -e 's/^ *//' | tr -d '\n')
+        # install it
+        softwareupdate -i "$PROD" -v
+        rm /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
+
+    # on 10.7/10.8, we instead download from public download URLs, which can be found in
+    # the dvtdownloadableindex:
+    # https://devimages.apple.com.edgekey.net/downloads/xcode/simulators/index-3905972D-B609-49CE-8D06-51ADC78E07BC.dvtdownloadableindex
+    else
+        [ "$OSX_VERS" -eq 7 ] && DMGURL=http://devimages.apple.com.edgekey.net/downloads/xcode/command_line_tools_for_xcode_os_x_lion_april_2013.dmg
+        [ "$OSX_VERS" -eq 7 ] && ALLOW_UNTRUSTED=-allowUntrusted
+        [ "$OSX_VERS" -eq 8 ] && DMGURL=http://devimages.apple.com.edgekey.net/downloads/xcode/command_line_tools_for_osx_mountain_lion_april_2014.dmg
+
+        TOOLS=clitools.dmg
+        curl "$DMGURL" -o "$TOOLS"
+        TMPMOUNT=`/usr/bin/mktemp -d /tmp/clitools.XXXX`
+        hdiutil attach "$TOOLS" -mountpoint "$TMPMOUNT"
+        installer $ALLOW_UNTRUSTED -pkg "$(find $TMPMOUNT -name '*.mpkg')" -target /
+        hdiutil detach "$TMPMOUNT"
+        rm -rf "$TMPMOUNT"
+        rm "$TOOLS"
+        exit
+    fi
+}
+
+setStatusMessage "Keep-alive: update existing sudo time stamp until we are finished"
+
+while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+
+export HOMEBREW_CASK_OPTS="--appdir=/Applications"
+
+if [[ ! -f "/Library/Developer/CommandLineTools/usr/bin/clang" ]]; then
+    setStatusMessage "Install the CLT"
+    install_clt
+fi
+
+# Install Ansible
+if ! exists pip; then
+    setStatusMessage "Install PIP"
+    sudo easy_install --quiet pip
+fi
+if ! exists ansible; then
+    setStatusMessage "Install Ansible"
+    sudo pip install -q ansible
+fi
+setStatusMessage "Get SLAC configs"
+#Get the required configs
+
 if [[ ! -d $WORKINGDIR/mac-dev-deployment ]]; then
 	echo "Getting the correct configs/n"
 	curl -OL https://github.com/SLAC-Lab/mac-dev-deployment/archive/master.zip
@@ -65,31 +116,54 @@ if [[ ! -d $WORKINGDIR/mac-dev-deployment ]]; then
 	echo "Expanding..../n"
 	unzip master.zip -d $WORKINGDIR
 fi
+setStatusMessage "Create necessary folders"
 
-cp -R $WORKINGDIR/mac-dev-deployment-master/ $WORKINGDIR/ 
+sudo mkdir -p /usr/local/superlumic
+sudo mkdir -p /usr/local/superlumic/roles
+sudo chmod -R g+rwx /usr/local
+sudo chgrp -R admin /usr/local
 
-# Ensure pip is installed
-if  [[ ! -f /usr/local/bin/pip ]]; then
-    echo "Installing pip..."
-  sudo /usr/bin/easy_install pip
+if [ -d "/usr/local/superlumic/config" ]; then
+    setStatusMessage "Update your config from git"
+    cd /usr/local/superlumic/config
+    git pull -q
+else
+    if [ ! -z "$repo" ]; then
+        setStatusMessage "Getting your config from your fork"
+        git clone -q $1 /usr/local/superlumic/config
+    else
+        setStatusMessage "Getting the default config"
+        git clone -q https://github.com/slac-ocio/superlumic-config.git /usr/local/superlumic/config
+    fi
 fi
 
-#update sudo's timestamp, as we want it after the long install above
-sudo -v
+cd /usr/local/superlumic
 
-# Install Battleschool
-echo "Installing dependencies... "
-sudo /usr/local/bin/pip install ansible==1.9.1
-sudo /usr/local/bin/pip install Battleschool
+setStatusMessage "Create ansible.cfg"
 
-echo "Running custom configuration for SLAC"
-sudo battle --config-file $WORKINGDIR/config.yml
+{ echo '[defaults]'; echo 'roles_path=/usr/local/superlumic/roles:/usr/local/superlumic/config/roles'; } > ansible.cfg
 
+setStatusMessage "Get all the required roles"
 
-sudo -v #again with the keepalive
+ansible-galaxy install -f -r config/requirements.yml -p roles
+
+if [ -f "config/$username.yml" ]; then
+    setStatusMessage "Running the ansible playbook for $username"
+    ansible-playbook -i "localhost," config/$username.yml
+else
+    if [ "travis" = "$username" ]; then
+        setStatusMessage "Running the ansible playbook for $username but use admin.yml as fallback"
+        ansible-playbook -i "localhost," config/admin.yml
+    else
+        triggerError "No playbook for $username found"
+    fi
+fi
+
+#Obtaining SLAC Specific codebases
+python $WORKINGDIR/slac-sites.py
+
 echo "Cleaning up..."
 rm -f master.zip
 rm -Rf $WORKINGDIR/mac-dev-deployment
 
 echo "All Done!  Happy Coding!"
-

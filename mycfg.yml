@@ -3,8 +3,8 @@ user:
   ORG: "SLAC-Lab"
   NAME: "yourgithubusername"
 paths:
-  BASE_URL: "https://github.com/SLAC-Lab/"
-  HOST: "github.com/SLAC-Lab"
+  BASE_URL: "https://github.com/SLAC-ocio/"
+  HOST: "github.com/SLAC-ocio"
 misc:
   DESC: " SLAC National Accelerator "
   TEAM: "Enterprise Apps Custom Team"
