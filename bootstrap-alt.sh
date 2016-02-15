@@ -87,6 +87,8 @@ sudo -v
 echo "Installing dependencies... "
 sudo /usr/local/bin/pip install ansible==1.9.1
 sudo /usr/local/bin/pip install Battleschool
+sudo /usr/local/bin/pip install gitpython
+sudo /usr/local/bin/pip install pygithub
 
 
 echo "Preparing Web Environment"

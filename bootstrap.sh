@@ -105,6 +105,9 @@ if ! exists ansible; then
     setStatusMessage "Install Ansible"
     sudo pip install -q ansible
 fi
+
+sudo /usr/local/bin/pip install gitpython
+sudo /usr/local/bin/pip install pygithub
 setStatusMessage "Get SLAC configs"
 #Get the required configs
 	echo "Getting the correct configs/n"
