@@ -148,11 +148,11 @@ ansible-galaxy install -f -r config/requirements.yml -p roles
 
 if [ -f "config/$username.yml" ]; then
     setStatusMessage "Running the ansible playbook for $username"
-    ansible-playbook -ivvv "localhost," config/$username.yml
+    ansible-playbook -i "localhost," config/$username.yml
 else
     if [ "travis" = "$username" ]; then
         setStatusMessage "Running the ansible playbook for $username but use admin.yml as fallback"
-        ansible-playbook -ivvv "localhost," config/admin.yml
+        ansible-playbook -i "localhost," config/admin.yml
     else
         triggerError "No playbook for $username found"
     fi
