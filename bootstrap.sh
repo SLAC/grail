@@ -159,10 +159,11 @@ else
 fi
 
 #Obtaining SLAC Specific codebases
-python $WORKINGDIR/slac-sites.py
+cd $WORKINGDIR
+python ./slac-sites.py
 
 echo "Cleaning up..."
-rm -f master.zip
-rm -Rf $WORKINGDIR/mac-dev-deployment
+rm -F ~/master.zip
+rm -Rf ~/$WORKINGDIR/mac-dev-deployment
 
 echo "All Done!  Happy Coding!"
