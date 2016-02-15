@@ -152,7 +152,7 @@ if [ -f "config/$username.yml" ]; then
 else
     if [ "travis" = "$username" ]; then
         setStatusMessage "Running the ansible playbook for $username but use admin.yml as fallback"
-        ansible-playbook -ivvvv "localhost," config/admin.yml
+        ansible-playbook -ivvv "localhost," config/admin.yml
     else
         triggerError "No playbook for $username found"
     fi
