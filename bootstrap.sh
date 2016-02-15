@@ -114,9 +114,6 @@ setStatusMessage "Get SLAC configs"
 	mkdir -p ~/.slac-mac/playbooks
 	git clone -q https://github.com/SLAC-Lab/mac-dev-deployment ~/.slac-mac/playbooks
 
-	#expand archive
-	echo "Expanding..../n"
-	unzip master.zip -d $WORKINGDIR
 
 setStatusMessage "Create necessary folders"
 
