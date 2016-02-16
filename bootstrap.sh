@@ -111,8 +111,8 @@ sudo /usr/local/bin/pip install pygithub
 setStatusMessage "Get SLAC configs"
 #Get the required configs
 	echo "Getting the correct configs/n"
-	mkdir -p ~/.slac-mac/playbooks
-	git clone -q https://github.com/SLAC-Lab/mac-dev-deployment ~/.slac-mac/playbooks
+	mkdir -p ~/.slac-mac
+	git clone -q https://github.com/SLAC-Lab/mac-dev-deployment ~/.slac-mac/
 
 
 setStatusMessage "Create necessary folders"
@@ -158,12 +158,3 @@ else
     fi
 fi
 
-#Obtaining SLAC Specific codebases
-cd $WORKINGDIR
-python ./slac-sites.py
-
-echo "Cleaning up..."
-rm -F ~/master.zip
-rm -Rf ~/$WORKINGDIR/mac-dev-deployment
-
-echo "All Done!  Happy Coding!"

@@ -24,8 +24,3 @@ sources:
           - webstorm.yml #IDE for WebDev, excellent for Javascript apps
           - phpstorm.yml #integrated support for Drupal
           - firefox.yml #Good browser for development
-vars:
-    - computername:
-    - git_user_name:
-    - git_user_email:
-    - php_version:
