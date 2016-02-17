@@ -5,7 +5,7 @@ BGreen='\e[1;32m'       # Green
 BRed='\e[1;31m'         # Red
 Color_Off='\e[0m'       # Text Reset
 BASEDIR=`dirname $0`
-WORKINGDIR=~/.slac-mac/playbooks
+WORKINGDIR=~/.slac-mac
 ROLESDIR=~/roles
 
 function setStatusMessage {
@@ -31,7 +31,7 @@ if [ ! -z "$2" ]; then
 fi
 
 if [[ ! -d $WORKINGDIR ]]; then
-    mkdir -p ~/.slac-mac/playbooks
+    mkdir -p ~/.slac-mac/
 fi
 
 function triggerError {
