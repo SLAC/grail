@@ -29,7 +29,7 @@ If you encounter errors run the command again, if you repeatedly encounter them,
 You may see warnings and errors, they are generally safe to ignore.
 As with all software, please examine the source before running a command a guy in a lab tells you to.
 
-For advanced documentation see the (https://github.com/SLAC-OCIO/mac-dev-deployment/wiki)[Wiki]
+For advanced documentation see the [Wiki](https://github.com/SLAC-OCIO/mac-dev-deployment/wiki)
 
 ### about
 This is a package developed to assist Developers that are new to Drupal, get the toolchain in place to develop locally using a Macintosh Computer running OS-X 10.10 or higher.
