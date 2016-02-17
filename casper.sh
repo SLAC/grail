@@ -140,11 +140,11 @@ setStatusMessage "Create ansible.cfg"
 
 setStatusMessage "Get all the required roles"
 
-ansible-galaxy install -f -r config/requirements.yml -p roles user=$localuser
+ansible-galaxy install -f -r config/requirements.yml -p roles
 
 if [ -f "config/$profile.yml" ]; then
     setStatusMessage "Running the ansible playbook for $profile"
-    ansible-playbook -i "localhost," config/$profile.yml
+    ansible-playbook -i "localhost," config/$profile.yml -e user=$localuser
 else
     if [ "travis" = "$profile" ]; then
         setStatusMessage "Running the ansible playbook for $profile but use admin.yml as fallback"

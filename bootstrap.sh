@@ -7,7 +7,6 @@ Color_Off='\e[0m'       # Text Reset
 BASEDIR=`dirname $0`
 WORKINGDIR=~/.slac-mac
 ROLESDIR=~/roles
-localuser=$3
 
 function setStatusMessage {
     printf "${IRed} --> ${BGreen}$1${Color_Off}\n" 1>&2
