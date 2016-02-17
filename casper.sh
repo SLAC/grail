@@ -24,7 +24,6 @@ setStatusMessage "Checking if we need to ask for a sudo password"
 sudo -v
 export ANSIBLE_ASK_SUDO_PASS=True
 
-repo=$1
 username=all
 if [ ! -z "$4" ]; then
     profile=$4
