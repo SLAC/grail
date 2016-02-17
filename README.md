@@ -14,17 +14,23 @@ You can also use Command+space -> type terminal -> type Enter
 
 Copy the line below (command+c) and paste it (command+v) into the terminal window and type enter
 
-```curl https://raw.githubusercontent.com/SLAC-Lab/mac-dev-deployment/master/bootstrap.sh | bash```
+```curl -s https://raw.githubusercontent.com/SLAC-OCIO/mac-dev-deployment/master/bootstrap.sh | bash -s https://github.com/SLAC-OCIO/superlumic-config admin```
 
 Caveats;  There seems to be some timeouts with Homebrew and random packages.  I can't really control those.
 Should you experience timeouts, or failures due to timeouts please re-run the above command.
 
-You will know you are finished with you see the words:
+You will know you are finished with you see the following:
 
-``` All Done! Happy Coding! ```
+``` localhost: xxx xxxxx xxxx xxxx failed=0```
+
+Pay close attention to the `failed=0` as that means everything completed.
+If you encounter errors run the command again, if you repeatedly encounter them, file a ticket in Service Now.
 
 You may see warnings and errors, they are generally safe to ignore.
 As with all software, please examine the source before running a command a guy in a lab tells you to.
+
+For advanced documentation see the (https://github.com/SLAC-OCIO/mac-dev-deployment/wiki)[Wiki]
+
 ### about
 This is a package developed to assist Developers that are new to Drupal, get the toolchain in place to develop locally using a Macintosh Computer running OS-X 10.10 or higher.
 
