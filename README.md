@@ -5,7 +5,8 @@ Grail utilizes BASH, Ansible and Homebrew to provide a standardized environment 
   - Base packages for Python, Ruby, PHP, BASH enhancements, OS-X enhancments
   - Node and Javascript packages, with multiple versions of node and nvm
   - The Drupal version includes compass and susyone
-  - 
+   
+  
 ## Requirements
 OS-X 10.10 (Yosemite)
 OS-X 10-11 (El Capitan)
