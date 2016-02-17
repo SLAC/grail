@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-#!/bin/bash
 
 BGreen='\e[1;32m'       # Green
 BRed='\e[1;31m'         # Red
@@ -27,8 +26,8 @@ export ANSIBLE_ASK_SUDO_PASS=True
 
 repo=$1
 username=all
-if [ ! -z "$2" ]; then
-    profile=$2
+if [ ! -z "$4" ]; then
+    profile=$4
 fi
 
 if [[ ! -d $WORKINGDIR ]]; then
@@ -129,13 +128,8 @@ if [ -d "/usr/local/grail/config" ]; then
     cd /usr/local/grail/config
     git pull -q
 else
-    if [ ! -z "$repo" ]; then
         setStatusMessage "Getting your config from your fork"
         git clone -q https://github.com/slac-ocio/grail-config.git /usr/local/grail/config
-    else
-        setStatusMessage "Getting the default config"
-        git clone -q https://github.com/slac-ocio/grail-config.git /usr/local/grail/config
-    fi
 fi
 
 cd /usr/local/grail
@@ -146,13 +140,12 @@ setStatusMessage "Create ansible.cfg"
 
 setStatusMessage "Get all the required roles"
 
-ansible-galaxy install -f -r config/requirements.yml -p roles
+ansible-galaxy install -f -r config/requirements.yml -p roles user=$localuser
 
 if [ -f "config/$profile.yml" ]; then
     setStatusMessage "Running the ansible playbook for $profile"
     ansible-playbook -i "localhost," config/$profile.yml
 else
-    if []
     if [ "travis" = "$profile" ]; then
         setStatusMessage "Running the ansible playbook for $profile but use admin.yml as fallback"
         ansible-playbook -i "localhost," config/admin.yml
