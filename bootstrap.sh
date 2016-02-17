@@ -129,13 +129,9 @@ if [ -d "/usr/local/grail/config" ]; then
     cd /usr/local/grail/config
     git pull -q
 else
-    if [ ! -z "$repo" ]; then
-        setStatusMessage "Getting your config from your fork"
-        git clone -q https://github.com/slac-ocio/grail-config.git /usr/local/grail/config
-    else
-        setStatusMessage "Getting the default config"
-        git clone -q https://github.com/slac-ocio/grail-config.git /usr/local/grail/config
-    fi
+    setStatusMessage "Getting your config from your fork"
+    git clone -q https://github.com/slac-ocio/grail-config.git /usr/local/grail/config
+
 fi
 
 cd /usr/local/grail
@@ -152,7 +148,6 @@ if [ -f "config/$profile.yml" ]; then
     setStatusMessage "Running the ansible playbook for $profile"
     ansible-playbook -i "localhost," config/$profile.yml
 else
-    if []
     if [ "travis" = "$profile" ]; then
         setStatusMessage "Running the ansible playbook for $profile but use admin.yml as fallback"
         ansible-playbook -i "localhost," config/admin.yml
