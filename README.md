@@ -1,6 +1,5 @@
 # Grail
-
-Grail utilizes BASH, Ansible and Homebrew to provide a standardized environment for Python, PHP, Ruby and Javascript.
+Grail makes it easier to get started with a new Mac, or spruce up your current one.  It uses Ansible, Superlumic, Python and Git to pull together the apps, programs and libraries necessary to do application developement and System Administration on OS-X.
 
   - Base packages for Python, Ruby, PHP, BASH enhancements, OS-X enhancments
   - Node and Javascript packages, with multiple versions of node and nvm
