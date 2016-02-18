@@ -8,8 +8,10 @@ Grail utilizes BASH, Ansible and Homebrew to provide a standardized environment 
    
   
 ## Requirements
-OS-X 10.10 (Yosemite)
-OS-X 10-11 (El Capitan)
+ - OS-X 10.10 (Yosemite)  or
+ - OS-X 10-11 (El Capitan)
+ - Internet Connection
+ - The ability to manage system level packages on your mac (sudo)
 
 ## Profiles
 There are three profiles that can be utilized
