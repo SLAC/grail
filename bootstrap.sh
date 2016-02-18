@@ -110,25 +110,24 @@ sudo /usr/local/bin/pip install pygithub
 
 setStatusMessage "Get SLAC configs"
 #Get the required configs
-	if [ -d "~/.slac-mac" ]; then
-	    setStatusMessage " I see you've done this before, Refreshing the SLAC configs/n"
-	    rm -Rf ~/.slac-mac
-	    git clone -q https://github.com/SLAC-ocio/mac-dev-deployment ~/.slac-mac/
-	else
-
-	mkdir -p ~/.slac-mac
-	git clone -q https://github.com/SLAC-ocio/mac-dev-deployment ~/.slac-mac/
-
+if [ -d "~/.slac-mac" ]; then
+    setStatusMessage " I see you've done this before, Refreshing the SLAC configs/n"
+    rm -Rf ~/.slac-mac
+    git clone -q https://github.com/SLAC-ocio/mac-dev-deployment ~/.slac-mac/
+else
+    mkdir -p ~/.slac-mac
+    git clone -q https://github.com/SLAC-ocio/mac-dev-deployment ~/.slac-mac/
+fi
 
 setStatusMessage "Create necessary folders"
-
+#these folders are necessary for grail. See Github wiki for structure
 sudo mkdir -p /usr/local/grail
 sudo mkdir -p /usr/local/grail/roles
 sudo chmod -R g+rwx /usr/local
 sudo chgrp -R admin /usr/local
 
 if [ -d "/usr/local/grail/config" ]; then
-    setStatusMessage "Update your config from git"
+    setStatusMessage "Welcome back, we'll Update your config from git"
     rm -Rf /usr/local/grail/config
     git clone -q https://github.com/slac-ocio/grail-config.git /usr/local/grail/config
 
