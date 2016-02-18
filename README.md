@@ -18,8 +18,11 @@ There are three profiles that can be utilized
   - All - A standard set of applications for a new Mac
   - Developer - An enhanced set of applications for common development uses
   - Drupal - An all encompassing platform, designed to get the Drupal development Neophyte to the point of writing code and site-building
-  
 
+## Runtime
+On a 2011 MacMini (Intel i5 dual-core) with 8GB of memory and a solid state drive, sitting on the fastest internet there is, this took 45 minutes to complete.  Your millage may vary. 
+
+## Usage
 To utilize the package open a terminal app:
 
 Click Finder -> in the Location bar at the top of your screen, click go -> click Applications -> Utilities -> Terminal
