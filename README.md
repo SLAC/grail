@@ -66,7 +66,11 @@ The documentation in the PDF was pulled from Github and Drupal's support section
 
 We acknowledge that there are enterprise alternatives - however, a lack of resources dictates that we get this working, so others can begin developing. 
 
+### Origin
 
+The initial need for Grail was born out of team consolidation.  The boss wanted us to crosstrain.  Getting started with Drupal development is a challenge as the toolchain required has a learning curve.  This pacakge speeds up the cross team integration. 
 
--V
+It is composed of several tricks from several bags. Many of the roles come from [Superlumic](https://github.com/superlumic) That package was developed with a lot of extensability in mind. I initially started with [Battleschool](https://github.com/spencergibb/battleschool), but found it was restricting me for my usecase. Either of them are great pacakges - I've tried to draw from both of them. I changed a few things that let us use this in Casper. I added some scripts that let the intrepid user grab all of the codebases. 
+
+-xalg
 
