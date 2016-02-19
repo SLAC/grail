@@ -107,14 +107,8 @@ sudo /usr/local/bin/pip install pygithub
 
 setStatusMessage "Get SLAC configs"
 #Get the required configs
-if [ -d "~/.slac-mac" ]; then
-    setStatusMessage " I see you've done this before, Refreshing the SLAC configs/n"
-    rm -Rf ~/.slac-mac
-    git clone -q https://github.com/SLAC-ocio/mac-dev-deployment ~/.slac-mac/
-else
-    mkdir -p ~/.slac-mac
-    git clone -q https://github.com/SLAC-ocio/mac-dev-deployment ~/.slac-mac/
-fi
+git clone -f https://github.com/SLAC-ocio/mac-dev-deployment ~/.slac-mac/
+
 
 setStatusMessage "Create necessary folders"
 #these folders are necessary for grail. See Github wiki for structure
