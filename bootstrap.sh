@@ -107,7 +107,9 @@ sudo /usr/local/bin/pip install pygithub
 
 setStatusMessage "Get SLAC configs"
 #Get the required configs
-git clone -f https://github.com/SLAC-ocio/mac-dev-deployment ~/.slac-mac/
+#blow away our folder, because we want to get fresh each time
+rm -Rf ~/.slac-mac
+git clone -q https://github.com/slac-ocio/grail ~/.slac-mac/
 
 
 setStatusMessage "Create necessary folders"
