@@ -29,9 +29,6 @@ if [ ! -z "$1" ]; then
     profile=$1
 fi
 
-if [[ ! -d $WORKINGDIR ]]; then
-    mkdir -p ~/.slac-mac/
-fi
 
 function triggerError {
     printf "${BRed} --> $1 ${Color_Off}\n" 1>&2
