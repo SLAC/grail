@@ -115,6 +115,7 @@ if [ -d "~/.slac-mac" ]; then
     rm -Rf ~/.slac-mac
     git clone -q https://github.com/SLAC-ocio/mac-dev-deployment ~/.slac-mac/
 else
+    mkdir -p ~/.slac-mac
     git clone -q https://github.com/SLAC-ocio/mac-dev-deployment ~/.slac-mac/
 fi
 
