@@ -9,7 +9,7 @@ misc:
   DESC: " SLAC National Accelerator "
   TEAM: "Enterprise Apps Custom Team"
   COM:  " a custom enterprise application developed by "
-  LOCAL_PATH: "/var/www/"
+  LOCAL_PATH: "/var/sites/"
 repos:
   - 'slac-www'
   - 'slac-gtw'
