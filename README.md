@@ -74,5 +74,10 @@ The initial need for Grail was born out of team consolidation.  The boss wanted 
 
 It is composed of several tricks from several bags. Many of the roles come from [Superlumic](https://github.com/superlumic) That package was developed with a lot of extensability in mind. I initially started with [Battleschool](https://github.com/spencergibb/battleschool), but found it was restricting me for my usecase. Either of them are great pacakges - I've tried to draw from both of them. I changed a few things that let us use this in Casper. I added some scripts that let the intrepid user grab all of the codebases. 
 
+**Contributors**
+Vincent Flesouras [about me](https://about.me/xalg)  [Github Profile](https://github.com/xalgorithm)
+Adam Duston [Github Profile](https://github.com/compybara)
+
+
 -xalg
 
