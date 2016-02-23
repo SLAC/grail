@@ -112,7 +112,7 @@ rm -Rf ~/.slac-mac
 git clone -q https://github.com/slac-ocio/grail ~/.slac-mac/
 
 
-setStatusMessage "Create necessary folders"
+setStatusMessage "Create necessary local folders"
 #these folders are necessary for grail. See Github wiki for structure
 sudo mkdir -p /usr/local/grail
 sudo mkdir -p /usr/local/grail/roles
@@ -125,7 +125,7 @@ if [ -d "/usr/local/grail/config" ]; then
     git clone -q https://github.com/slac-ocio/grail-config.git /usr/local/grail/config
 
 else
-    setStatusMessage "Getting your config from your fork"
+    setStatusMessage "Getting your config from Github"
     git clone -q https://github.com/slac-ocio/grail-config.git /usr/local/grail/config
 
 fi

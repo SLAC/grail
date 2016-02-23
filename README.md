@@ -54,7 +54,10 @@ As with all software, please examine the source before running a command a guy i
 
 For advanced documentation see the [Wiki](https://github.com/SLAC-OCIO/mac-dev-deployment/wiki)
 
-### about
+SLAC Drupal Developers should read the primer [SLAC Sitesup and Running](https://github.com/SLAC-OCIO/grail/wiki/SLAC-Sites---up-and-running) It details getting setup with an IDE, and initializing new test sites.
+
+
+### About
 This is a package developed to assist Developers that are new to Drupal, get the toolchain in place to develop locally using a Macintosh Computer running OS-X 10.10 or higher.
 
 Largely, it was designed to be self-contained, pulling from other projects only when necessary. However, SLAC Drupal Developers will need credentials in place (ssh keys) to utilize the scripts that download the private Drupal repositories.
