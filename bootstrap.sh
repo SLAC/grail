@@ -142,7 +142,7 @@ ansible-galaxy install -f -r config/requirements.yml -p roles
 
 if [ -f "config/$profile.yml" ]; then
     setStatusMessage "Running the ansible playbook for $profile"
-    ansible-playbook -i "localhost," config/$profile.yml -vvv
+    ansible-playbook -i "localhost," config/$profile.yml
 else
     if [ "travis" = "$profile" ]; then
         setStatusMessage "Running the ansible playbook for $profile but use admin.yml as fallback"
