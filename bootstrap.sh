@@ -101,6 +101,15 @@ if ! exists ansible; then
     setStatusMessage "Install Ansible"
     sudo pip install -q ansible
 fi
+if ! exists virtualenv; then
+    setStatusMessage "Install virtualenv"
+    sudo pip install -q virtualenv
+fi
+
+if ! exists MySQLdb; then
+    setStatusMessage "Install MySQL-Python"
+    sudo pip install -q MySQL-python
+fi
 
 sudo /usr/local/bin/pip install gitpython
 sudo /usr/local/bin/pip install pygithub
