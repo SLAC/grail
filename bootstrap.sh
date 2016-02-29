@@ -106,13 +106,20 @@ if ! exists virtualenv; then
     sudo pip install -q virtualenv
 fi
 
-if ! exists MySQLdb; then
+if ! exists MySQL-python; then
     setStatusMessage "Install MySQL-Python"
     sudo pip install -q MySQL-python
 fi
 
-sudo /usr/local/bin/pip install gitpython
-sudo /usr/local/bin/pip install pygithub
+if ! exists gitpython; then
+    setStatusMessage "Install Git-Python"
+    sudo pip install -q gitpython
+fi
+
+if ! exists pygithub; then
+    setStatusMessage "Install Python-Github"
+    sudo pip install -q pygithub
+fi
 
 setStatusMessage "Get SLAC configs"
 #Get the required configs
