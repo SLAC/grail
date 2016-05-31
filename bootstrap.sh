@@ -94,9 +94,15 @@ fi
 
 # Install Ansible
 if ! exists pip; then
+    setStatusMessage "Install Setup Tools"
+    sudo pip install --upgrade setuptools --user python
+fi
+
+if ! exists pip; then
     setStatusMessage "Install PIP"
     sudo easy_install --quiet pip
 fi
+
 if ! exists ansible; then
     setStatusMessage "Install Ansible"
     sudo pip install -q ansible
