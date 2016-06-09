@@ -85,6 +85,8 @@ setStatusMessage "Keep-alive: update existing sudo time stamp until we are finis
 
 while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
 
+sudo -H pip install --upgrade setuptools --user python
+
 export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 if [[ ! -f "/Library/Developer/CommandLineTools/usr/bin/clang" ]]; then
