@@ -93,7 +93,7 @@ if [[ ! -f "/Library/Developer/CommandLineTools/usr/bin/clang" ]]; then
 fi
 
 #Install Brew here, because pip and setuptools needs it
-if [[ !-f "brew home dir"]]; then
+if [[ !-f "/usr/local/bin/brew"]]; then
     setStatusMessage "Install Brew"
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
