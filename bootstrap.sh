@@ -163,6 +163,13 @@ fi
 
 cd /usr/local/grail
 
+#Cheating and using Ansibles' hacking script
+PREFIX_PYTHONPATH="/usr/local/bin/Cellar/bin/python2.7"
+
+export PYTHONPATH="$PREFIX_PYTHONPATH:$PYTHONPATH"
+export PATH="$PREFIX_PYTHONPATH:$PATH"
+
+
 setStatusMessage "Create ansible.cfg"
 
 { echo '[defaults]'; echo 'roles_path=/usr/local/grail/roles:/usr/local/grail/config/roles'; } > ansible.cfg
