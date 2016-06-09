@@ -166,8 +166,8 @@ cd /usr/local/grail
 #Cheating and using Ansibles' hacking script
 PREFIX_PYTHONPATH="/usr/local/bin/Cellar/bin/python2.7"
 
-export PYTHONPATH="$PREFIX_PYTHONPATH:$PYTHONPATH"
-export PATH="$PREFIX_PYTHONPATH:$PATH"
+export PYTHONPATH="$PYTHONPATH"
+export PATH="$PYTHONPATH:$PATH"
 
 
 setStatusMessage "Create ansible.cfg"
