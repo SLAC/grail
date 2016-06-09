@@ -93,40 +93,33 @@ if [[ ! -f "/Library/Developer/CommandLineTools/usr/bin/clang" ]]; then
     setStatusMessage "Install the CLT"
     install_clt
 fi
-
 #Install Brew here, because pip and setuptools needs it
 if [[ ! -f "/usr/local/bin/brew" ]]; then
     setStatusMessage "Install Brew"
     /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
-#set path
-setStatusMessage "Set Path"
-export PATH=/usr/local/bin:/usr/local/sbin:$PATH
-
 #install python through brew
 setStatusMessage "Install Python"
 brew install python
 
-# Install Ansible
-if ! exists pip; then
-    setStatusMessage "Install Setup Tools"
-    sudo pip install --upgrade setuptools --user python
-fi
+#Install andible from src
+setStatusMessage "Clone Ansible"
+git clone git://github.com/ansible/ansible.git --recursive
 
-if ! exists pip; then
-    setStatusMessage "Install PIP"
-    sudo easy_install --quiet pip
-fi
+#Prep envirtonment
+setStatusMessage "Source config"
+source ~/hacking/env-setup
 
-if ! exists ansible; then
-    setStatusMessage "Install Ansible"
-    sudo pip install -q ansible
-fi
-if ! exists virtualenv; then
-    setStatusMessage "Install virtualenv"
-    sudo pip install -q virtualenv
-fi
+#Install Pip
+setStatusMessage "Install pip"
+sudo easy_install pip
+
+#install Ansible Support libs
+setStatusMessage "Install paramiko, PyYAML, Jinja2, httplib2, six and virtualenv "
+sudo pip install paramiko PyYAML Jinja2 httplib2 six virtualenv
+
+
 
 #if ! exists MySQL-python; then
  #   setStatusMessage "Install MySQL-Python"
