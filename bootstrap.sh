@@ -174,6 +174,8 @@ setStatusMessage "Create ansible.cfg"
 
 { echo '[defaults]'; echo 'roles_path=/usr/local/grail/roles:/usr/local/grail/config/roles'; } > ansible.cfg
 
+alias python='/usr/local/Cellar/python'
+
 setStatusMessage "Get all the required roles"
 
 ansible-galaxy install -f -r config/requirements.yml -p roles
