@@ -92,6 +92,12 @@ if [[ ! -f "/Library/Developer/CommandLineTools/usr/bin/clang" ]]; then
     install_clt
 fi
 
+#Install Brew here, because pip and setuptools needs it
+if [[ !-f "brew home dir"]]; then
+    setStatusMessage "Install Brew"
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+fi
+
 # Install Ansible
 if ! exists pip; then
     setStatusMessage "Install Setup Tools"
