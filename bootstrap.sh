@@ -89,13 +89,13 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 
 if [[ ! -f "/Library/Developer/CommandLineTools/usr/bin/clang" ]]; then
     setStatusMessage "Install the CLT"
-    install_clt
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
 #Install Brew here, because pip and setuptools needs it
-if [[ !-f "/usr/local/bin/brew"]]; then
+if [[ ! -f "/usr/local/bin/brew" ]]; then
     setStatusMessage "Install Brew"
-    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+    install_clt
 fi
 
 # Install Ansible
