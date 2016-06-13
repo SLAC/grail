@@ -119,6 +119,10 @@ sudo easy_install pip
 setStatusMessage "Install paramiko, PyYAML, Jinja2, httplib2, six and virtualenv "
 sudo pip install paramiko PyYAML Jinja2 httplib2 six virtualenv
 
+#install Ansible itself
+setStatusMessage "Installing Ansible"
+sudo pip install ansible
+
 
 
 #if ! exists MySQL-python; then
