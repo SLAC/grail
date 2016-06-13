@@ -103,9 +103,11 @@ fi
 setStatusMessage "Install Python"
 brew install python
 
-#Install andible from src
+#Install ansible from src
 setStatusMessage "Clone Ansible"
+cd ~/
 git clone git://github.com/ansible/ansible.git --recursive
+cd  ~/ansible
 
 #Prep envirtonment
 setStatusMessage "Source config"
@@ -116,12 +118,8 @@ setStatusMessage "Install pip"
 sudo easy_install pip
 
 #install Ansible Support libs
-setStatusMessage "Install paramiko, PyYAML, Jinja2, httplib2, six and virtualenv "
-sudo pip install paramiko PyYAML Jinja2 httplib2 six virtualenv
-
-#install Ansible itself
-setStatusMessage "Installing Ansible"
-sudo pip install ansible
+setStatusMessage "Install paramiko, PyYAML, Jinja2, httplib2, six and virtualenv Python MySQL lib, git and Github libs"
+sudo pip install paramiko PyYAML Jinja2 httplib2 six virtualenv MySQL-Python gitpython pygithub
 
 
 
